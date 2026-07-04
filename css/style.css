@@ -1,0 +1,56 @@
+/* ==========================
+   ESTILOS GENERALES
+========================== */
+
+body{
+    background:#f5f5f5;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ==========================
+   TABLERO DE NÚMEROS
+========================== */
+
+#tableroNumeros{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:5px;
+    margin-top:20px;
+}
+
+/* ==========================
+   BOTONES DE LOS NÚMEROS
+========================== */
+
+.numero{
+
+    width:42px;
+    height:42px;
+
+    border:1px solid #198754;
+    border-radius:6px;
+
+    background:white;
+    color:#198754;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.numero:hover{
+
+    background:#198754;
+    color:white;
+
+}
+
+.seleccionado{
+
+    background:#198754 !important;
+    color:white !important;
+
+}
