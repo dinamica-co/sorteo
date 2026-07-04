@@ -1,55 +1,515 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rifa Online Diaria</title>
 
+    <meta name="description"
+        content="Compra tu número de la rifa diaria de forma rápida y segura.">
+
+    <!-- Bootstrap -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
 
-<div class="container mt-4">
+    <!-- ===========================
+         ENCABEZADO
+    ============================ -->
 
-    <div class="text-center">
+    <header class="container mt-4">
 
-        <h1>🎟 RIFA ONLINE DIARIA</h1>
+        <div class="card shadow-sm">
 
-        <h4>5 de Julio de 2026</h4>
+            <div class="card-body text-center">
 
-        <h5>7:00 PM</h5>
+                <!-- Logo -->
 
-        <h3 class="text-success">$2.000 por Número</h3>
+                <img
+                    src="img/logo.png"
+                    id="logo"
+                    alt="Logo"
+                    class="mb-3">
 
-    </div>
+                <!-- Nombre -->
 
-    <hr>
+                <h1 id="tituloRifa">
 
-    <h3>🏆 Plan de Premios</h3>
+                    RIFA ONLINE DIARIA
 
-    <ul>
-        <li>🥇 Primeras 2 cifras - <strong>$50.000</strong></li>
-        <li>🥈 Dos cifras del medio - <strong>$30.000</strong></li>
-        <li>🥉 Últimas 2 cifras - <strong>$20.000</strong></li>
-    </ul>
+                </h1>
 
-    <hr>
+                <!-- Fecha -->
 
-    <h3>🎲 Jugar al azar</h3>
+                <div class="datos-rifa">
 
-    <button class="btn btn-primary">1</button>
-    <button class="btn btn-primary">2</button>
-    <button class="btn btn-primary">3</button>
-    <button class="btn btn-primary">5</button>
+                    <i class="bi bi-calendar-event"></i>
 
-    <hr>
+                    <span id="fechaRifa">
 
-    <div id="tableroNumeros"></div>
+                        5 de Julio de 2026
 
-</div>
+                    </span>
 
-<script src="js/app.js"></script>
+                </div>
+
+                <!-- Hora -->
+
+                <div class="datos-rifa">
+
+                    <i class="bi bi-clock-history"></i>
+
+                    <span id="horaRifa">
+
+                        7:00 PM
+
+                    </span>
+
+                </div>
+
+                <!-- Valor -->
+
+                <div class="precio mt-3">
+
+                    Valor por número
+
+                    <strong>
+
+                        $2.000
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- ===========================
+         PREMIOS
+    ============================ -->
+
+    <section class="container mt-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                🏆 Plan de Premios
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row text-center">
+
+                    <div class="col-md-4 premio">
+
+                        🥇
+
+                        <h4>$50.000</h4>
+
+                        <small>
+
+                            Dos primeras cifras
+
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-4 premio">
+
+                        🥈
+
+                        <h4>$30.000</h4>
+
+                        <small>
+
+                            Dos cifras del medio
+
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-4 premio">
+
+                        🥉
+
+                        <h4>$20.000</h4>
+
+                        <small>
+
+                            Dos últimas cifras
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+         INFORMACIÓN
+    ============================ -->
+
+    <section class="container mt-4">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    Disponibles
+
+                    <span id="cantidadDisponibles">
+
+                        100
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    Valor acumulado
+
+                    <span id="valorVenta">
+
+                        $0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+        <!-- ===========================
+         FILTROS Y JUEGO AL AZAR
+    ============================ -->
+
+    <section class="container mt-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <div class="row align-items-center">
+
+                    <!-- Filtros -->
+
+                    <div class="col-lg-6 text-center text-lg-start mb-3 mb-lg-0">
+
+                        <button
+                            id="btnDisponibles"
+                            class="btn btn-success">
+
+                            Disponibles
+
+                        </button>
+
+                        <button
+                            id="btnTodos"
+                            class="btn btn-outline-secondary">
+
+                            Todos
+
+                        </button>
+
+                    </div>
+
+                    <!-- Al azar -->
+
+                    <div class="col-lg-6 text-center">
+
+                        <span class="me-2">
+
+                            🎲 Jugar al azar
+
+                        </span>
+
+                        <button
+                            class="btn btn-primary btnAzar"
+                            data-cantidad="1">
+
+                            1
+
+                        </button>
+
+                        <button
+                            class="btn btn-primary btnAzar"
+                            data-cantidad="2">
+
+                            2
+
+                        </button>
+
+                        <button
+                            class="btn btn-primary btnAzar"
+                            data-cantidad="3">
+
+                            3
+
+                        </button>
+
+                        <button
+                            class="btn btn-primary btnAzar"
+                            data-cantidad="5">
+
+                            5
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+         TABLERO DE NÚMEROS
+    ============================ -->
+
+    <section class="container mt-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                Selecciona tus números
+
+            </div>
+
+            <div class="card-body">
+
+                <!--
+                    Aquí JavaScript generará
+                    automáticamente los números
+                    del 00 al 99.
+                -->
+
+                <div id="tableroNumeros">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+        <!-- ===========================
+         MIS NÚMEROS
+    ============================ -->
+
+    <section class="container mt-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-success text-white">
+
+                <i class="bi bi-ticket-perforated"></i>
+
+                Mis números
+
+            </div>
+
+            <div class="card-body">
+
+                <!-- Aquí aparecerán los números seleccionados -->
+
+                <div id="listaSeleccionados">
+
+                    <p class="text-muted mb-0">
+
+                        Aún no has seleccionado ningún número.
+
+                    </p>
+
+                </div>
+
+                <hr>
+
+                <div class="row">
+
+                    <div class="col-6">
+
+                        <strong>Cantidad</strong>
+
+                        <h4 id="cantidadSeleccionados">
+
+                            0
+
+                        </h4>
+
+                    </div>
+
+                    <div class="col-6 text-end">
+
+                        <strong>Total</strong>
+
+                        <h3 class="text-success" id="totalPagar">
+
+                            $0
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <div class="d-grid mt-3">
+
+                    <button
+                        class="btn btn-outline-danger"
+                        id="btnLimpiar">
+
+                        🗑 Limpiar selección
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+         DATOS DEL PARTICIPANTE
+    ============================ -->
+
+    <section class="container mt-4 mb-5">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-primary text-white">
+
+                Datos del participante
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Nombre completo
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        class="form-control"
+                        placeholder="Escribe tu nombre">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Celular
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="celular"
+                        class="form-control"
+                        placeholder="3001234567">
+
+                </div>
+
+                <div class="d-grid">
+
+                    <button
+                        id="btnReservar"
+                        class="btn btn-success btn-lg">
+
+                        Confirmar solicitud
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+        <!-- ===========================
+         PIE DE PÁGINA
+    ============================ -->
+
+    <footer class="container mb-4">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <small>
+
+                    © 2026 Rifa Online Diaria
+
+                </small>
+
+                <br>
+
+                <small class="text-muted">
+
+                    Todos los derechos reservados
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+
+    <script src="js/app.js"></script>
 
 </body>
 </html>
