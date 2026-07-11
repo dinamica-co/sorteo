@@ -1,38 +1,135 @@
 // ==========================================
-// API RIFA ONLINE
+// API RIFA ONLINE V4
 // ==========================================
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbyS8F1IL235HzwmiRQ61LgIFDyFbzMgKT6QJvyyf4b78yOCq8-rI31RUEqipD04AEIj/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwrKq3B6rTwHFrEp7G_njTymQGOr0FL1NN4IvKThYmqUzbmTw5BkZWCZnxmLz-N0frS/exec";
 
-async function enviarSolicitud(datos){
+// ==========================================
+// GUARDAR RESERVA
+// ==========================================
 
-    try{
+async function guardarReserva(datos) {
 
-        const respuesta = await fetch(API_URL,{
+    datos.accion = "guardar";
 
-            method:"POST",
+    try {
 
-            body:JSON.stringify(datos)
+        const respuesta = await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+
+            body: JSON.stringify(datos)
 
         });
 
-        const resultado = await respuesta.json();
+        return await respuesta.json();
 
-        return resultado;
+    } catch (error) {
 
-    }catch(error){
+        return {
 
-        console.error(error);
+            ok: false,
 
-        return{
-
-            ok:false,
-
-            mensaje:"No fue posible conectar con el servidor."
+            mensaje: error.toString()
 
         };
 
     }
+
+}
+
+// ==========================================
+// OBTENER CONFIGURACIÓN
+// ==========================================
+
+async function obtenerConfiguracion() {
+
+    const respuesta = await fetch(API_URL + "?accion=configuracion");
+
+    return await respuesta.json();
+
+}
+
+// ==========================================
+// OBTENER SOLICITUDES
+// ==========================================
+
+async function obtenerSolicitudes() {
+
+    const respuesta = await fetch(API_URL + "?accion=solicitudes");
+
+    return await respuesta.json();
+
+}
+
+// ==========================================
+// OBTENER NÚMEROS VENDIDOS
+// ==========================================
+
+async function obtenerVendidos() {
+
+    const respuesta = await fetch(API_URL + "?accion=vendidos");
+
+    return await respuesta.json();
+
+}
+
+// ==========================================
+// CONFIRMAR
+// ==========================================
+
+async function confirmarSolicitud(fila) {
+
+    const respuesta = await fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify({
+
+            accion: "confirmar",
+
+            fila: fila
+
+        })
+
+    });
+
+    return await respuesta.json();
+
+}
+
+// ==========================================
+// CANCELAR
+// ==========================================
+
+async function cancelarSolicitud(fila) {
+
+    const respuesta = await fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify({
+
+            accion: "cancelar",
+
+            fila: fila
+
+        })
+
+    });
+
+    return await respuesta.json();
 
 }
